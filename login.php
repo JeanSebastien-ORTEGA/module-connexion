@@ -24,20 +24,50 @@
 <body>
 
 <!-- LOGIN -->
+
+<?php
+require('config.php');
+session_start();
+if (isset($_POST['login'])){
+  $login = stripslashes($_REQUEST['login']);
+  $login = mysqli_real_escape_string($conn, $login);
+  $password = stripslashes($_REQUEST['password']);
+  $password = mysqli_real_escape_string($conn, $password);
+
+    $query = "SELECT * FROM `utilisateurs` WHERE login='$login' and password='$password'";
+
+  $result = mysqli_query($conn,$query) or die(mysql_error());
+  $rows = mysqli_num_rows($result);
+
+  if($rows==1){
+      $_SESSION['login'] = $login;
+      header("Location:profile.php");
+  }
+  else{
+    $message = "Le nom d'utilisateur ou le mot de passe est incorrect.";
+  }
+}
+?>
+
 <div class="containerform">
         <div id="login">
           <h1 class="title">Connexion</h1>
           <br>
-            <form method="post" class="form-log">
+            <form method="post" class="form-log" name="connexion">
                 <div class="group-form">
-                    <input type="text" placeholder="Login">
+                    <input type="text" name="login" placeholder="Login">
                 </div>
                 <div class="group-form">
-                    <input type="password" placeholder="Password"> 
+                    <input type="password" name="password" placeholder="Password"> 
                 </div>
                 <div class="group-form">
-                    <input type="submit" class="submit" value="Connexion">
+                    <input type="submit" name="submit" class="submit" value="Connexion">
                 </div>
+
+    <?php if (! empty($message)) { ?>
+    <p class="errorMessage"><?php echo $message; ?></p>
+    <?php } ?>
+
             </form>
         </div>
     </div>

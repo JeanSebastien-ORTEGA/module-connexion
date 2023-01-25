@@ -26,32 +26,67 @@
 <body>
 
     <!-- INSCRIPTION -->
+
+<?php
+
+require('config.php');
+if (isset($_REQUEST['login'], $_REQUEST['prenom'], $_REQUEST['nom'], $_REQUEST['password'])){
+
+  // récupérer le login 
+  $login = stripslashes($_REQUEST['login']);
+  $login = mysqli_real_escape_string($conn, $login);
+  // récupérer le prenom 
+  $prenom = stripslashes($_REQUEST['prenom']);
+  $prenom = mysqli_real_escape_string($conn, $prenom);
+  // récupérer le nom 
+  $nom = stripslashes($_REQUEST['nom']);
+  $nom = mysqli_real_escape_string($conn, $nom);
+  // récupérer le mot de passe 
+  $password = stripslashes($_REQUEST['password']);
+  $password = mysqli_real_escape_string($conn, $password); //requéte SQL + mot de passe crypté
+  
+
+    $query = "INSERT INTO `utilisateurs`(`login`, `prenom`, `nom`, `password`)
+              VALUES ('$login', '$prenom', '$nom', '$password')";
+  // Exécuter la requête sur la base de données
+
+    $res = mysqli_query($conn, $query);
+    if($res){
+        $message = "Vous êtes inscrit avec succès !";
+    }
+}else{}
+
+?>
+
 <div class="containerform">
-        <div id="login">
+        <div id="login">       
+            
+    <?php if (! empty($message)) { ?>
+    <p class="inscriptonreussite"><?php echo $message; ?></p>
+    <?php } ?>
+
+
           <h1 class="title">Inscription</h1>
           <p class="paragraphe"> Veuillez remplir tous les champs</p>
-            <form method="post" class="form-log">
+            <form method="post" class="form-log" name="inscription">
                 <div class="group-form">
-                    <input type="text" placeholder="Login">
+                    <input type="text" name="login" placeholder="Login" required>
                 </div>
                 <div class="group-form">
-                    <input type="text" placeholder="Nom">
+                    <input type="text" name="nom" placeholder="Nom" required>
                 </div>
                 <div class="group-form">
-                    <input type="text" placeholder="Prénom">
+                    <input type="text" name="prenom" placeholder="Prénom" required>
                 </div>
                 <div class="group-form">
-                    <input type="email" placeholder="Email">
+                    <input type="password" name="password" placeholder="Password" required> 
                 </div>
                 <div class="group-form">
-                    <input type="password" placeholder="Password"> 
+                    <input type="submit" name="submit" class="submit" value="S'inscrire">
                 </div>
-                <div class="group-form">
-                    <input type="password" placeholder="Confirm Password"> 
-                </div>
-                <div class="group-form">
-                    <input type="submit" class="submit" value="S'inscrire">
-                </div>
+
+    
+
             </form>
         </div>
     </div>

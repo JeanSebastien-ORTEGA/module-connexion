@@ -1,3 +1,15 @@
+<?php
+
+// Initialiser la session
+  session_start();
+
+  // Vérifiez si l'utilisateur est connecté, sinon redirigez-le vers la page de connexion
+  if(!isset($_SESSION["login"])){
+    header("Location: index.php");
+    exit(); 
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -24,6 +36,23 @@
 <body>
 
 <!-- Body -->
+
+
+ <!-- Personalisation de l'accueil -->
+<div class="sucess">
+    <h1>Bienvenue 
+
+        <?php echo $_SESSION['login']; ?>
+
+    !</h1>
+    <br>
+    <p>C'est votre tableau de bord.</p>
+    <br><br>
+    <div class="deco">
+    <a href="logout.php">Déconnexion</a>
+    </div>
+</div>  
+
 
 <!-- fin body -->
 
