@@ -62,7 +62,7 @@
     <hr class="hrfooter">
     <div class="contenair">
         <div class="logofooter">
-            <img src="ressources/logo.png">
+            <img src="ressources/logofooter.png">
         </div>
         <div class="section1">
             <h3>Cool Stuff</h3>
