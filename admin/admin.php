@@ -1,21 +1,33 @@
+<?php
+
+// Initialiser la session
+  session_start();
+
+  // Vérifiez si l'utilisateur est connecté, sinon redirigez-le vers la page de connexion
+  if(!isset($_SESSION["login"])){
+    header("Location: index.php");
+    exit(); 
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="style.css" rel="stylesheet">
+    <link href="../style.css" rel="stylesheet">
     <title>Module-Connexion</title>
 </head>
 <header>
     <div class="sectionheader">
         <div class="logoheader">
-            <img src="ressources/logo.png">
+            <img src="../ressources/logo.png">
         </div>
             <nav class="nav">
-                <li><a href="index.php">Accueil</a></li>
-                <li><a href="login.php">Se connecter</a></li>
-                <li><a href="inscription.php">Créer un compte</a></li>
+                <li><a href="../index.php">Accueil</a></li>
+                <li><a href="../login.php">Se connecter</a></li>
+                <li><a href="../inscription.php">Créer un compte</a></li>
             </nav>
     </div>
     <hr class="hrheader">
@@ -25,6 +37,27 @@
 
 <!-- Body -->
 
+
+ <!-- Personalisation de l'accueil -->
+<div class="sucess">
+    <h1>Bienvenue 
+
+        <?php echo $_SESSION['login']; ?>
+
+    !</h1>
+    <br>
+    <p>C'est votre espace admin.</p>
+    <br><br>
+    <a href="add_user.php">Add user</a> | 
+    <a href="#">Update/Delete user</a> | 
+    <a href="tableau.php">See all user</a> | 
+    <br><br>
+    <div class="deco">
+    <a href="../logout.php">Déconnexion</a>
+    </div>
+</div>  
+
+
 <!-- fin body -->
 
 
@@ -33,7 +66,7 @@
     <hr class="hrfooter">
     <div class="contenair">
         <div class="logofooter">
-            <img src="ressources/logofooter.png">
+            <img src="../ressources/logofooter.png">
         </div>
         <div class="section1">
             <h3>Cool Stuff</h3>

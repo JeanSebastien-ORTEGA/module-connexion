@@ -37,13 +37,19 @@ if (isset($_POST['login'])){
     $query = "SELECT * FROM `utilisateurs` WHERE login='$login' and password='$password'";
 
   $result = mysqli_query($conn,$query) or die(mysql_error());
-  $rows = mysqli_num_rows($result);
 
-  if($rows==1){
-      $_SESSION['login'] = $login;
-      header("Location:profile.php");
-  }
-  else{
+
+
+  if(mysqli_num_rows($result) == 1){
+    $_SESSION['login'] = $login;
+    $user = mysqli_fetch_assoc($result);
+    // vérifier si l'utilisateur est un administrateur ou un utilisateur
+    if ($user['type'] == 'admin') {
+      header('location: admin/admin.php');      
+    }else{
+      header('location: profile.php');
+    }
+  }else{
     $message = "Le nom d'utilisateur ou le mot de passe est incorrect.";
   }
 }
